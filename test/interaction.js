@@ -398,21 +398,20 @@
 		});
 
 		describe('deleting active item', function() {
-			it.only('should deactivate the item', function(done) {
+			it('should deactivate the item', function(done) {
 				var escaped = 'AAAAAA&lt;';
-				var unescaped = 'AAAAAA<';
 				var test = setup_test('<select multiple="multiple">' +
 					`<option value="${escaped}">A</option>` +
 					'<option value="b">B</option>' +
 					'</select>', {});
 
 				click(test.selectize.$control, function() {
-					click($(`[data-value="${unescaped}"]`, test.selectize.$dropdown), function() {
-						click($(`[data-value="${unescaped}"]`, test.selectize.$control), function() {
+					click($(`[data-value="${escaped}"]`, test.selectize.$dropdown), function() {
+						click($(`[data-value="${escaped}"]`, test.selectize.$control), function() {
 							syn
 								.type('[backspace]', test.selectize.$control_input)
 								.delay(5, function() {
-									click($(`[data-value="${unescaped}"]`, test.selectize.$dropdown), function () {
+									click($(`[data-value="${escaped}"]`, test.selectize.$dropdown), function () {
 										expect($(`[data-value="${escaped}"]`, test.selectize.$control).hasClass('active')).to.be.equal(false);
 										done();
 									});

@@ -1341,7 +1341,7 @@ $.extend(Selectize.prototype, {
 	 * @return {boolean|string}
 	 */
 	registerOption: function(data) {
-		var key = hash_key(data[this.settings.valueField]);
+		var key = hash_key(escape_html(data[this.settings.valueField]));
 		if (typeof key === 'undefined' || key === null || this.options.hasOwnProperty(key)) return false;
 		data.$order = data.$order || ++this.order;
 		this.options[key] = data;
@@ -2435,7 +2435,7 @@ $.extend(Selectize.prototype, {
 			}
 		}
 		if (templateName === 'option' || templateName === 'item') {
-			html.attr('data-value', value || '');
+			html.attr('data-value', escape_html(value) || '');
 		}
 
 		// update cache
